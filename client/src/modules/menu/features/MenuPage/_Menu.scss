@@ -1,0 +1,49 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.menu {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: inherit;
+  scrollbar-width: none;
+
+  .left_side {
+    margin-right: 67px;
+    max-width: 750px;
+    height: 100%;
+    padding: 0 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 22px;
+
+    .title {
+      font-weight: 700;
+      line-height: 30px;
+      color: $primary-text;
+      font-size: 24px;
+    }
+
+    .menu_box {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .right_side {
+    width: fit-content;
+    height: 100%;
+    padding-right: 48px;
+
+    &_container {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+  }
+}

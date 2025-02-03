@@ -1,0 +1,77 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.timer_container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  .timer_box_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+
+    .timer_box_and_dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      .timer_box {
+        background-color: $secondary;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+        border-radius: 15px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+
+        span {
+          font-weight: 600;
+          color: $primary;
+          font-size: 20px;
+          cursor: default;
+        }
+      }
+
+      .dots {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        font-size: 38px;
+        height: 30px;
+
+        span {
+          line-height: 0;
+          color: $secondary;
+          cursor: default;
+        }
+      }
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 24px;
+      color: $border;
+    }
+  }
+}
+
+.timer_names {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  p {
+    width: 100%;
+  }
+}

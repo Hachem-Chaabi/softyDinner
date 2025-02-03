@@ -1,0 +1,134 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.menu_item {
+  &:nth-child(6) {
+    margin-bottom: 45px;
+  }
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    p {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .day_name {
+      color: $primary-text;
+    }
+
+    .state_time_passed {
+      color: $border;
+    }
+
+    .state_reserve {
+      color: $secondary;
+    }
+
+    .state_rate {
+      color: #bfa900;
+    }
+
+    .state_cancel {
+      color: #c63d00;
+    }
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 655px;
+    position: relative;
+    background-color: $bg-1;
+    border-radius: 15px;
+    padding: 12px 20px;
+    box-shadow: 4px 4px 4px 0px #0000000d;
+
+    .menu_item_left_side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      .dish_img {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+      }
+
+      .text {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+
+        .dish_name {
+          font-weight: 600;
+          font-size: 16px;
+          color: $primary-text;
+        }
+
+        .side_dishes {
+          font-weight: 500;
+          font-size: 14px;
+          color: $border;
+        }
+
+        .rate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+
+          p {
+            font-weight: 500;
+            font-size: 14px;
+            color: $border;
+          }
+        }
+      }
+    }
+
+    .menu_item_right_side {
+      cursor: pointer;
+      width: 60px;
+      height: 45px;
+      border-radius: 15px;
+      padding: 4px 8px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu_item_time_passed {
+      background-color: $secondary;
+      cursor: default;
+    }
+
+    .menu_item_reserve {
+      background-color: $secondary;
+    }
+
+    .menu_item_rate {
+      background-color: $rate;
+    }
+
+    .menu_item_cancel {
+      background-color: #ff1e00;
+    }
+  }
+}

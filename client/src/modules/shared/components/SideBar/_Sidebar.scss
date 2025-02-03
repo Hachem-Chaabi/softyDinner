@@ -1,0 +1,56 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.sidebar {
+  position: relative;
+  width: 300px;
+  padding: 24px 26px 48px 26px;
+  border-right: 0.5px dashed $secondary;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  &_collapsed {
+    width: 115px;
+    min-width: 80px;
+    padding: 18px 22px;
+  }
+
+  .hamburger_btn {
+    &_active {
+      transform: rotate(180deg);
+    }
+    position: absolute;
+    transform: rotate(0);
+    top: 155px;
+    left: unset;
+    right: -10.5px;
+    padding: 5px 8px;
+    background: $primary;
+    border-radius: 100%;
+    border: 0.5px dashed $secondary;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .sidebar_logo_and_buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 26px;
+
+    .sidebar_btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+  }
+}

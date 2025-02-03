@@ -1,0 +1,60 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.dinner_tickets_box_container {
+  margin-top: 44px;
+  width: 275px;
+
+  .dinner_tickets_box {
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    padding: 0 !important;
+
+    .text {
+      font-weight: 500;
+      font-size: 16px;
+      color: $primary-text;
+
+      span {
+        font-weight: 800;
+        color: $secondary;
+      }
+    }
+
+    .dinner_tickets_empty_state {
+      font-weight: 500;
+      font-size: 12px;
+      color: $primary-text;
+      text-align: center;
+      padding: 0 16px;
+      z-index: 0;
+      width: 90%;
+    }
+
+    .btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+
+      button {
+        &:last-child {
+          background: transparent;
+        }
+        width: 35%;
+        z-index: 0;
+      }
+    }
+  }
+}
+
+.dinner_tickets_box {
+  &::before {
+    content: url('/anchors.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(-180deg);
+  }
+}

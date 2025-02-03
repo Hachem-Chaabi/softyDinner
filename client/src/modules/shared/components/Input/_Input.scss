@@ -1,0 +1,104 @@
+@use '../../assets/styles/abstracts/colors' as *;
+
+.input-form {
+  .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: $primary-text;
+    line-height: 17px;
+
+    .red-star {
+      font-size: 12px;
+      color: $danger;
+      vertical-align: top;
+    }
+  }
+
+  .error-message {
+    margin-left: 4px;
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $danger;
+  }
+
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
+    min-height: 32px;
+    overflow: hidden;
+    background-color: transparent;
+    border-radius: 2px;
+    width: 100%;
+
+    .input {
+      &::placeholder {
+        font-size: 14px;
+        line-height: 15px;
+        font-weight: 400;
+      }
+      &.input[type='password'] {
+        font: small-caption;
+        font-size: 18px;
+      }
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      width: 100%;
+      border: 0;
+      background-color: transparent;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .eye-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  .input-rounded {
+    border-radius: 6px;
+  }
+
+  $size: (
+    sm: 6px 0,
+    md: 10px 0,
+    lg: 14px 0,
+    xl: 18px 0,
+  );
+
+  @each $key, $value in $size {
+    .input-#{$key} {
+      padding: $value;
+    }
+  }
+
+  $text-color: (
+    primary: $primary-text,
+  );
+
+  @each $key, $value in $text-color {
+    .input-#{$key} {
+      color: $value;
+    }
+  }
+
+  $border-color: (
+    primary: $light-border,
+    danger: $danger,
+  );
+
+  @each $key, $value in $border-color {
+    .input-container-#{$key} {
+      border: 1px solid $value;
+    }
+  }
+}

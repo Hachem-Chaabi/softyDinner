@@ -1,0 +1,41 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.box_container {
+  transition: all 0.2s;
+
+  .box_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .see_all_link {
+      &:hover {
+        color: $hover;
+      }
+      transition: all 0.2s;
+      color: $secondary-text;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
+  .dishes_box_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+
+    .slider {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .dishes_box {
+      display: flex;
+      width: max-content;
+    }
+  }
+}

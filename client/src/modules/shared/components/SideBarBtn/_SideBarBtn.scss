@@ -1,0 +1,39 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.sidebar_btns {
+  a {
+    width: 100%;
+
+    .sidebar_btn {
+      &:hover {
+        background-color: $tertiary;
+      }
+      transition: all 0.2s;
+      width: 100%;
+      border-radius: 14px;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      cursor: pointer;
+
+      &_active {
+        background-color: $tertiary;
+
+        p {
+          color: $secondary-text !important;
+          font-weight: 700 !important;
+        }
+      }
+
+      p {
+        transition: all 0.2s;
+        color: $primary-text;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 500;
+      }
+    }
+  }
+}

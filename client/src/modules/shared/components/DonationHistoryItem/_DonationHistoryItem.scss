@@ -1,0 +1,35 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.donation_history_item {
+  z-index: 0;
+  background-color: $primary;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  border-radius: 10px;
+  border: 0.5px solid $secondary;
+  width: 100%;
+
+  .logo_container {
+    height: 28px;
+  }
+
+  .text_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+    p {
+      font-weight: 500;
+      font-size: 10px;
+      color: $border;
+
+      span {
+        color: $primary-text;
+      }
+    }
+  }
+}

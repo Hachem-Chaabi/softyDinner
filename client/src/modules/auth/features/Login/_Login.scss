@@ -1,0 +1,81 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.login_feature {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $tertiary;
+
+  .login_feature_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 34px;
+    width: 560px;
+    height: 560px;
+    padding: 52px 70px;
+    background-color: $primary;
+    border-radius: 30px;
+    border: 1px solid $secondary;
+    box-shadow: 4px 4px 30px 0px #0000000d;
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      gap: 14px;
+      color: $primary-text;
+
+      h3 {
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 34px;
+      }
+
+      p {
+        width: 75%;
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: 500;
+        opacity: 80%;
+      }
+    }
+
+    .logo {
+      img {
+        justify-self: center;
+        display: block;
+      }
+    }
+
+    .login_feature_container_inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+
+      .password_input_and_actions {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .password_actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .forget_password {
+            color: $primary-text;
+            opacity: 60%;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+            letter-spacing: -0.06px;
+          }
+        }
+      }
+    }
+  }
+}

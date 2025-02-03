@@ -1,0 +1,73 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.dish_container {
+  &:nth-child(2) {
+    margin-left: 4px;
+  }
+  &:nth-child(5) {
+    margin-right: 4px;
+  }
+  margin-right: 12px;
+  position: relative;
+  width: 160px;
+  height: 212px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .dish_img {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    border-radius: 100%;
+    width: 120px;
+    height: 120px;
+
+    box-shadow: 0px 4px 18px -2px rgba(250, 115, 55, 0.5);
+  }
+
+  .dish_background {
+    background-color: $bg-1;
+    padding: 0 12px 14px 12px;
+    border-radius: 15px;
+    width: 100%;
+    position: absolute;
+    top: 50px;
+
+    .dish_name_and_rate {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 10px;
+      height: 150px;
+
+      .dish_name {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          font-size: 14px;
+          font-weight: 600;
+          color: $primary-text;
+        }
+
+        img {
+          cursor: pointer;
+        }
+      }
+
+      .dish_rate {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        p {
+          font-size: 14px;
+          color: $border;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

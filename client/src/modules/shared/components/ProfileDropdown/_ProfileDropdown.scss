@@ -1,0 +1,50 @@
+@use '../../assets/styles/abstracts/colors' as *;
+
+.profile_dropdown {
+  background-color: $primary;
+  width: 150px;
+  height: 100px;
+  border-radius: 6px;
+  border: 0.5px solid rgba(132, 132, 132, 0.3);
+  box-shadow: 4px 2px 4px 0px rgba(0, 0, 0, 0.05);
+  padding: 14px 6px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+
+  .user_label {
+    font-size: 12px;
+    font-weight: 600;
+    color: $primary-text;
+    padding: 5px;
+  }
+
+  .id_label {
+    font-weight: 500;
+    font-size: 12px;
+    color: $primary-text;
+    padding: 5px;
+  }
+
+  .logout_container {
+    &:hover {
+      background-color: $tertiary;
+    }
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    p {
+      color: $danger;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}

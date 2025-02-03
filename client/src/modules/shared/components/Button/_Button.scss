@@ -1,0 +1,61 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.btn {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn_primary {
+  &:hover {
+    &:after {
+      left: 120%;
+      transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+  }
+  &:after {
+    background: #fff;
+    content: '';
+    height: 155px;
+    left: -75px;
+    opacity: 0.2;
+    position: absolute;
+    top: -50px;
+    transform: rotate(35deg);
+    transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+    width: 50px;
+    z-index: 0;
+  }
+  overflow: hidden;
+  position: relative;
+  border: none;
+  background-color: $secondary;
+  color: $primary;
+  line-height: 24px;
+}
+
+.btn_secondary {
+  &:hover {
+    border-color: $hover;
+    color: $hover;
+  }
+  border: 1px solid $secondary;
+  background-color: $primary;
+  color: $secondary;
+}
+
+.btn_cancel {
+  color: $danger;
+  border: 1px solid $danger;
+  justify-content: space-between;
+  background: transparent;
+  padding: 8px 16.5px;
+}

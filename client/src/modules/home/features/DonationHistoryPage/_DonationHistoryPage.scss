@@ -1,0 +1,108 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.donation_history_page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  padding: 24px 60px 70px 60px;
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+
+    h3 {
+      font-weight: 700;
+      color: $primary-text;
+      font-size: 24px;
+    }
+
+    .go_back_btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      cursor: pointer;
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        color: $secondary;
+      }
+    }
+  }
+
+  .body {
+    width: 100%;
+
+    .ant-spin-container {
+      .ant-table-content {
+        // height: 545px;
+        border: 0.5px solid #d4d4d4;
+        border-radius: 6px;
+
+        .ant-table-thead {
+          .ant-table-cell {
+            &:nth-child(1) {
+              width: 24%;
+            }
+            &::before {
+              content: none !important;
+            }
+            border: none;
+            text-align: center;
+            padding: 14px 16px;
+            color: $primary-text;
+            font-size: 16px;
+            font-weight: 600;
+            background: $tertiary;
+          }
+        }
+
+        .ant-table-tbody {
+          .ant-table-cell {
+            border: none;
+            padding: 14px 16px;
+            text-align: center;
+            color: $primary-text;
+            font-size: 14px;
+            font-weight: 500;
+          }
+
+          .ant-table-cell-row-hover {
+            background: none;
+          }
+        }
+      }
+
+      .ant-pagination {
+        .ant-pagination-item {
+          border-color: $secondary;
+
+          a {
+            display: inline;
+            color: $secondary;
+          }
+        }
+
+        .ant-pagination-item-link {
+          span {
+            color: $primary-text;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ant-pagination-item-active {
+  background-color: $secondary !important;
+
+  a {
+    color: $primary !important;
+  }
+}

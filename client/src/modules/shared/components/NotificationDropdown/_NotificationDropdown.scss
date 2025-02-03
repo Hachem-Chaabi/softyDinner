@@ -1,0 +1,17 @@
+@use '../../assets/styles/abstracts/colors' as *;
+
+.notification_dropdown {
+  background-color: $primary;
+  width: 340px;
+  height: 170px;
+  border-radius: 6px;
+  border: 0.5px solid rgba(132, 132, 132, 0.3);
+  box-shadow: 4px 2px 4px 0px rgba(0, 0, 0, 0.05);
+  padding: 12px 10px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}

@@ -1,0 +1,23 @@
+@use '../../assets/styles/abstracts/colors' as *;
+
+.shared_navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 0.5px dashed $secondary;
+  padding: 30px 48px 30px 48px;
+
+  &_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    .navbar_btn {
+      cursor: pointer;
+    }
+  }
+}
+
+

@@ -1,0 +1,69 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.sidebar_bottom {
+  width: 100%;
+  padding: 18px;
+
+  .content_title {
+    font-family: 'Noto Sans Arabic', serif;
+    color: $primary-text;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: right;
+    font-weight: 700;
+  }
+
+  .content_description {
+    font-family: 'Noto Sans Arabic', serif;
+    color: $primary-text;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: right;
+    font-weight: 500;
+  }
+}
+
+.slick-arrow {
+  color: $secondary !important;
+  opacity: 1 !important;
+  &::after {
+    width: 14px !important;
+    height: 14px !important;
+    border-inline-width: 2.5px 0 !important;
+    border-block-width: 2.5px 0 !important;
+  }
+}
+
+.slick-next {
+  inset-inline-end: -30px !important;
+}
+
+.slick-prev {
+  inset-inline-start: -30px !important;
+}
+
+.ant-carousel {
+  border: 1px dashed $secondary;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.slick-dots {
+  bottom: -28px !important;
+
+  li {
+    height: 10px !important;
+    width: 10px !important;
+  }
+
+  .slick-active {
+    width: 10px !important;
+  }
+
+  button {
+    background: $secondary !important;
+    height: 10px !important;
+    width: 10px !important;
+    border-radius: 100% !important;
+  }
+}

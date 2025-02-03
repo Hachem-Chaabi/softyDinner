@@ -1,0 +1,17 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.arrow_btn_container {
+  &:hover {
+    background-color: $hover;
+  }
+  z-index: 1;
+  position: absolute;
+  transition: all 0.2s;
+  background-color: $secondary-text;
+  border-radius: 100%;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.empty_search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+
+  .text {
+    font-size: 16px;
+    color: $primary-text;
+    font-weight: 500;
+    width: 50%;
+  }
+}

@@ -1,0 +1,68 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.rate_modal {
+  .ant-modal-content {
+    padding: 40px 75px 28px 75px !important;
+  }
+
+  .ant-modal-body {
+    justify-content: center;
+    gap: 18px;
+
+    .ant-rate-star {
+      margin-inline-end: 4px;
+    }
+  }
+
+  .ant-modal-footer {
+    margin: 0;
+  }
+
+  .rate_modal_footer {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .rate_and_textarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
+
+    .rate_description {
+      &::placeholder {
+        color: $border;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid $light-border;
+      padding: 10px 12px;
+      height: 80px;
+      resize: none;
+    }
+  }
+}
+
+.ant-rate-star-second {
+  path {
+    stroke-width: 1.5px;
+    stroke: #fde52d;
+  }
+}
+
+.ant-rate-star-full {
+  path {
+    fill: #fde52d;
+  }
+}

@@ -1,0 +1,107 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.box_container {
+  .dinner_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 54px;
+  }
+
+  .box {
+    .image_and_rate {
+      z-index: 0;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 7px;
+      position: relative;
+
+      .dinner_image {
+        border-radius: 20px;
+        width: 170px;
+        height: 130px;
+      }
+
+      .dinner_name_and_rate {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .dinner_name {
+          color: $primary-text;
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .dinner_rate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+
+          p {
+            font-weight: 500;
+            font-size: 14px;
+            color: $border;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+
+    .timer {
+      z-index: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      p {
+        font-weight: 500;
+        font-size: 12px;
+        color: $border;
+        line-height: 24px;
+      }
+
+      button {
+        margin-top: 10px;
+        width: 50%;
+      }
+
+      .period_ended {
+        color: $primary-text;
+        text-align: center;
+        line-height: 15px;
+        width: 75%;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+.dinner_box {
+  &::before {
+    content: url('/anchors.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(180deg);
+  }
+}
+
+.ribbon {
+  transition: all 0.2s;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: $success;
+  color: $primary;
+  padding: 4px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 2px 0px 4px 0px #00000033;
+}
