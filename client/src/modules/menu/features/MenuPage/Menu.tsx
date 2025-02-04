@@ -23,7 +23,9 @@ function Menu() {
             {menu?.map((item: IMenuItem) => (
               <MenuItem
                 key={item._id}
+                _id={item._id}
                 dishes={item.dishes}
+                reservationId={item.reservations?.[0]?._id}
                 averageRating={item.averageRating}
                 date={item.date}
                 isReserved={item.isReserved}

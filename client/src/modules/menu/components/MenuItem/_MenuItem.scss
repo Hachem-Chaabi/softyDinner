@@ -93,6 +93,10 @@
           justify-content: center;
           gap: 8px;
 
+          .heart_icon {
+            cursor: pointer;
+          }
+
           p {
             font-weight: 500;
             font-size: 14px;
@@ -112,6 +116,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .menu_item_btn {
+        background: transparent;
+        border: none;
+        display: flex;
+      }
     }
 
     .menu_item_time_passed {

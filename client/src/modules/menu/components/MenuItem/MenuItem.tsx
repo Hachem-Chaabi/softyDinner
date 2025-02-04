@@ -1,6 +1,7 @@
 import starIcon from '/star.png'
 import tickIcon from '/tick-menu-page.png'
 import filledHeartIcon from '/filled-heart.png'
+import outlinedHeart from '/outlined-heart.png'
 import crossIcon from '/cross.png'
 import plusIcon from '/plus.png'
 
@@ -9,28 +10,70 @@ import { useState } from 'react'
 import RateModal from '../../../shared/components/RateModal/RateModal'
 import { IMenuItem, ISideDish } from '../../data/types'
 import { formatRate } from '../../../shared/helpers/helpers'
+import { useAppDispatch, useAppSelector } from '../../../shared/store'
+import { Item } from '../../../favorite/data/types'
+import { addFavorite, removeFavorite } from '../../../favorite/data/favoriteSlice'
+import { useToastMessage } from '../../../shared/hook/useToastMessage'
+import useMenuReservation from '../../data/useMenuReservation'
 
-function MenuItem({ date, averageRating, isRated, dishes, isReserved }: IMenuItem) {
+function MenuItem({
+  _id,
+  date,
+  averageRating,
+  isRated,
+  dishes,
+  isReserved,
+  reservationId,
+}: IMenuItem) {
+  const dispatch = useAppDispatch()
   const [modalOpen, setModalOpen] = useState(false)
+  const { user } = useAppSelector((state) => state.auth)
+
+  const favorites = useAppSelector((state) => state.favorite.favorites)
+  const isFavorite = favorites.some((fav: Item) => fav.id === _id)
 
   const dayName = new Date(date).toLocaleDateString('en-US', { weekday: 'long' })
   const mainDish = dishes.mainDish
 
+  const {
+    createReservationLoading,
+    deleteReservationLoading,
+    handleCreateReservation,
+    handleDeleteReservation,
+  } = useMenuReservation()
+
   const isPassed = new Date() > new Date(date)
-  const toRate = isPassed && isReserved
-  const isCancel = new Date() === new Date(date) && isReserved
-  const toReserve = new Date() < new Date(date) && !isReserved
+  const toBeRated = isPassed && isReserved
+  const toBeReserved = new Date() < new Date(date) && !isReserved
+  const isCancel = isReserved && new Date() < new Date(date)
+
+  const { showToastMessage, messageConfigProvider } = useToastMessage()
 
   const handleOpenModal = () => {
     setModalOpen(true)
   }
 
+  const handleFavoriteToggle = () => {
+    if (isFavorite) {
+      dispatch(removeFavorite(_id!))
+    } else {
+      dispatch(
+        addFavorite({
+          id: _id!,
+          name: mainDish.name,
+          image: mainDish.image,
+          averageRating: mainDish.averageRating,
+        })
+      )
+    }
+  }
+
   let type, stateName
-  if (toRate) {
+  if (toBeRated) {
     type = 'rate'
     stateName = 'Rate the dinner'
   }
-  if (isPassed && !toRate) {
+  if (isPassed && !toBeRated) {
     type = 'time_passed'
     stateName = 'Reservation time passed'
   }
@@ -38,7 +81,7 @@ function MenuItem({ date, averageRating, isRated, dishes, isReserved }: IMenuIte
     type = 'cancel'
     stateName = 'Cancel the dinner'
   }
-  if (toReserve) {
+  if (toBeReserved) {
     type = 'reserve'
     stateName = 'Reserve the dinner'
   }
@@ -66,17 +109,22 @@ function MenuItem({ date, averageRating, isRated, dishes, isReserved }: IMenuIte
               <div className="rate">
                 <p>{formatRate(averageRating)}/5</p>
                 <img src={starIcon} alt="star" />
-                <img src={filledHeartIcon} alt="filled heart icon" />
+                <img
+                  onClick={handleFavoriteToggle}
+                  src={isFavorite ? filledHeartIcon : outlinedHeart}
+                  alt="filled heart icon"
+                  className="heart_icon"
+                />
               </div>
             </div>
           </div>
 
           <div
-            onClick={toRate ? handleOpenModal : undefined}
+            onClick={toBeRated ? handleOpenModal : undefined}
             className={`menu_item_right_side menu_item_${type}`}
           >
-            {isPassed && !toRate && <img src={tickIcon} alt="white tick icon" />}
-            {toRate && (
+            {isPassed && !toBeRated && <img src={tickIcon} alt="white tick icon" />}
+            {toBeRated && (
               <svg
                 width="28"
                 height="28"
@@ -94,13 +142,27 @@ function MenuItem({ date, averageRating, isRated, dishes, isReserved }: IMenuIte
               </svg>
             )}
             {isCancel && (
-              <img
-                style={{ width: '22px', height: '22px' }}
-                src={crossIcon}
-                alt="white cross icon"
-              />
+              <button
+                className="menu_item_btn"
+                disabled={deleteReservationLoading}
+                onClick={(e) => handleDeleteReservation(e, reservationId!, showToastMessage)}
+              >
+                <img
+                  style={{ width: '22px', height: '22px' }}
+                  src={crossIcon}
+                  alt="white cross icon"
+                />
+              </button>
             )}
-            {toReserve && <img src={plusIcon} alt="white plus icon" />}
+            {toBeReserved && (
+              <button
+                className="menu_item_btn"
+                disabled={createReservationLoading}
+                onClick={() => handleCreateReservation(showToastMessage, user?._id, _id)}
+              >
+                <img src={plusIcon} alt="white plus icon" />
+              </button>
+            )}
           </div>
 
           {isReserved && <div className="ribbon">Reserved</div>}
@@ -108,6 +170,8 @@ function MenuItem({ date, averageRating, isRated, dishes, isReserved }: IMenuIte
           <RateModal isOpen={modalOpen} setIsOpen={setModalOpen} />
         </div>
       </div>
+
+      {messageConfigProvider}
     </>
   )
 }

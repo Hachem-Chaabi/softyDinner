@@ -1,49 +1,43 @@
-import tonightDinner from '/tonight-dinner.png'
 import star from '/public/star.png'
 import cancel from '/public/cancel.png'
 
-import Button from '../../../shared/components/Button/Button'
-import Timer from '../../../shared/components/Timer/Timer'
 import { format } from 'date-fns'
-import { useCreateReservationMutation, useGetDinnerScheduleQuery } from '../../data/home'
 import { formatRate } from '../../../shared/helpers/helpers'
 import { useToastMessage } from '../../../shared/hook/useToastMessage'
+import { useAppSelector } from '../../../shared/store'
+import { useGetDinnerScheduleQuery } from '../../data/home'
+
+import Button from '../../../shared/components/Button/Button'
+import Timer from '../../../shared/components/Timer/Timer'
 import DinnerSkeleton from '../../../shared/components/DinnerSkeleton/DinnerSkeleton'
 import EmptyDinnerState from '../../../shared/components/EmptyDinnerState/EmptyDinnerState'
-// import { useAppSelector } from '../../../shared/store'
+import useHomeReservation from '../../data/useHomeReservation'
 
 interface IDinner {
   userId?: string
 }
 
 function Dinner({ userId }: IDinner) {
-  const { showToastMessage, messageConfigProvider } = useToastMessage()
+  const timeLeft = useAppSelector((state) => state.timer)
+  const isTimeOut = timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0
 
-  const [createReservation] = useCreateReservationMutation()
+  const { showToastMessage, messageConfigProvider } = useToastMessage()
 
   const todayDate = format(new Date(), 'yyyy-MM-dd')
   const isSunday = new Date().toLocaleDateString('en-US', { weekday: 'long' }) === 'Sunday'
 
   const { data, isLoading, error } = useGetDinnerScheduleQuery(todayDate, { skip: isSunday })
+  const reservationId = data?.data?.reservations?.[0]._id
 
   const todayDish = data?.data?.dishes?.mainDish
   const isReserved = data?.data?.isReserved
 
-  const handleReservation = async (e: any) => {
-    e.preventDefault()
-    await createReservation({
-      Reservations: [
-        {
-          userId,
-          dinnerScheduleId: todayDish?._id,
-        },
-      ],
-    })
-      .unwrap()
-      .catch((err) => {
-        showToastMessage(err?.message || 'Something went wrong', 'error')
-      })
-  }
+  const {
+    createReservationLoading,
+    deleteReservationLoading,
+    handleCreateReservation,
+    handleDeleteReservation,
+  } = useHomeReservation()
 
   if (isLoading) return <DinnerSkeleton />
 
@@ -75,16 +69,32 @@ function Dinner({ userId }: IDinner) {
               <p>Time left to reserve tonight's dinner:</p>
               <Timer />
 
-              <Button onClick={handleReservation} type="primary">
-                Reserve
-              </Button>
-
-              {/* <Button type="cancel">
-            <span>Cancel</span>
-            <img src={cancel} alt="cancel icon" />
-            </Button> */}
-
-              {/* <p className="period_ended">Time's up! the cancellation period has ended.</p> */}
+              {!isTimeOut && !isReserved ? (
+                <Button
+                  submitting={createReservationLoading}
+                  onClick={() =>
+                    handleCreateReservation(showToastMessage, userId!, data?.data?._id)
+                  }
+                  type="primary"
+                >
+                  Reserve
+                </Button>
+              ) : !isTimeOut && isReserved ? (
+                <Button
+                  onClick={(e) => handleDeleteReservation(e, reservationId, showToastMessage)}
+                  submitting={deleteReservationLoading}
+                  type="cancel"
+                >
+                  <span>Cancel</span>
+                  <img src={cancel} alt="cancel icon" />
+                </Button>
+              ) : (
+                isTimeOut && (
+                  <p className="period_ended">
+                    Time's up! the {isReserved ? 'cancellation' : 'reservation'} period has ended.
+                  </p>
+                )
+              )}
             </div>
           </div>
         )}

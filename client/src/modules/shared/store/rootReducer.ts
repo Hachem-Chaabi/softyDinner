@@ -4,7 +4,7 @@ import { api } from './services/api'
 import authReducer from '../../auth/data/authSlice'
 import timerReducer from './slices/timerSlice'
 import forgetPasswordReducer from '../../auth/data/forgetPasswordSlice'
-import favoriteSlice from '../../favorite/data/favoriteSlice'
+import favoriteReducer from '../../favorite/data/favoriteSlice'
 import todosReducer from '../../todos/data/todoSlice'
 
 const rootReducer = combineReducers({
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   timer: timerReducer,
   forgetPassword: forgetPasswordReducer,
-  favorite: favoriteSlice,
+  favorite: favoriteReducer,
   todos: todosReducer,
 })
 

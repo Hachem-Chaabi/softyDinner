@@ -8,7 +8,26 @@ export const homeApi = api.injectEndpoints({
       }),
       providesTags: [{ type: 'Menu', id: 'dinnerSchedulePerWeek' }],
     }),
+    createReservation: builder.mutation({
+      query: (data) => ({
+        url: `/api/v1/dinnerReservation`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: [{ type: 'Menu', id: 'dinnerSchedulePerWeek' }],
+    }),
+    deleteReservation: builder.mutation({
+      query: ({ id }: { id: string | null }) => ({
+        url: `/api/v1/dinnerReservation/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'Menu', id: 'dinnerSchedulePerWeek' }],
+    }),
   }),
 })
 
-export const { useGetDinnerSchedulePerWeekQuery } = homeApi
+export const {
+  useGetDinnerSchedulePerWeekQuery,
+  useCreateReservationMutation,
+  useDeleteReservationMutation,
+} = homeApi
