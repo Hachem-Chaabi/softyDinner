@@ -6,13 +6,9 @@ interface TimeLeft {
   seconds: number
 }
 
-// 1738321200000 12
-// 1738436400000 20
-
 const getRemainingTime = (): TimeLeft => {
   const now = new Date()
-  const storedEndTime = '1738321200000'
-  const endTime = new Date(parseInt(storedEndTime))
+  const endTime = new Date(new Date().setUTCHours(11, 30, 0, 0))
 
   if (now >= endTime) return { hours: 0, minutes: 0, seconds: 0 }
 

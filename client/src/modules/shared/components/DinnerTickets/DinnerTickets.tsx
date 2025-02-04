@@ -6,6 +6,9 @@ import { useAppSelector } from '../../store'
 function DinnerTickets() {
   const { user } = useAppSelector((state) => state.auth)
 
+  const timeLeft = useAppSelector((state) => state.timer)
+  const isTimeOut = timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0
+
   const isSunday = new Date().toLocaleDateString('en-US', { weekday: 'long' }) === 'Sunday'
 
   const [modalOpen, setModalOpen] = useState(false)
@@ -28,9 +31,8 @@ function DinnerTickets() {
           </p>
         ) : (
           <div className="btns">
-            {!isSunday && <Button type="primary">Reserve</Button>}
+            {!isSunday && !isTimeOut && <Button type="primary">Reserve</Button>}
             <Button onClick={handleOpenModal} type="secondary">
-              
               Donate
             </Button>
             <DonationModal

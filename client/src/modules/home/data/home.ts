@@ -20,13 +20,20 @@ export const homeApi = api.injectEndpoints({
       }),
       providesTags: [{ type: 'Home', id: 'dinnerSchedule' }],
     }),
-    createReservation: builder.mutation({
+    createTodayReservation: builder.mutation({
       query: (data) => ({
         url: `/api/v1/dinnerReservation`,
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: [{ type: 'Home', id: 'createReservation' }],
+      invalidatesTags: [{ type: 'Home', id: 'dinnerSchedule' }],
+    }),
+    deleteTodayReservation: builder.mutation({
+      query: ({ id }: { id: string | null }) => ({
+        url: `/api/v1/dinnerReservation/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'Home', id: 'dinnerSchedule' }],
     }),
   }),
 })
@@ -35,5 +42,6 @@ export const {
   useGetAvailableDishesQuery,
   useGetDonationHistoryQuery,
   useGetDinnerScheduleQuery,
-  useCreateReservationMutation,
+  useCreateTodayReservationMutation,
+  useDeleteTodayReservationMutation,
 } = homeApi

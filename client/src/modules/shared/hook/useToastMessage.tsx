@@ -1,4 +1,5 @@
 import tickIcon from '/tick-square.png'
+import errorIcon from '/error-icon.png'
 
 import { message, ConfigProvider } from 'antd'
 
@@ -7,6 +8,7 @@ export const useToastMessage = () => {
 
   const showToastMessage = (msg: string, type: string) => {
     messageApi.open({
+      key: 'toast',
       duration: 5,
       icon: null,
       content: (
@@ -15,7 +17,7 @@ export const useToastMessage = () => {
           {type === 'success' ? (
             <img src={tickIcon} alt="tick icon" />
           ) : (
-            <img src={tickIcon} alt="tick icon" />
+            <img src={errorIcon} alt="tick icon" />
           )}
         </div>
       ),
