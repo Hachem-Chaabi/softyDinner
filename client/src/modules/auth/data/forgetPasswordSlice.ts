@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { validateEmail } from './authThunk'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface AuthState {
   status: string

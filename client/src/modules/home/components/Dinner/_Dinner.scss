@@ -14,8 +14,9 @@
       z-index: 0;
       display: flex;
       justify-content: center;
+      align-items: center;
       flex-direction: column;
-      gap: 7px;
+      gap: 10px;
       position: relative;
 
       .dinner_image {
@@ -27,9 +28,11 @@
       .dinner_name_and_rate {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        gap: 30px;
 
         .dinner_name {
+          font-family: 'Noto Sans Arabic', serif;
           color: $primary-text;
           font-size: 14px;
           font-weight: 600;
@@ -84,6 +87,7 @@
 
 .dinner_box {
   &::before {
+    width: 100%;
     content: url('/anchors.png');
     position: absolute;
     top: 0;
@@ -105,4 +109,37 @@
   border-top-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: 2px 0px 4px 0px #00000033;
+}
+
+@media (max-width: 1380px) {
+  .box_container {
+    .dinner_box {
+      padding: 10px 30px;
+    }
+
+    .timer {
+      p {
+        text-wrap: nowrap;
+      }
+
+      .period_ended {
+        text-wrap: initial;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .box_container {
+    .dinner_box {
+      flex-direction: column;
+      height: 100%;
+      padding: 22px;
+    }
+  }
+
+  .ribbon {
+    font-size: 12px;
+    padding: 2px 8px;
+  }
 }

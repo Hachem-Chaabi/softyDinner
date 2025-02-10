@@ -1,9 +1,9 @@
-import calendar from '/Calendar_empty.png'
+import CalendarIcon from '../../assets/icons/shared/calendar-icon.svg?react'
 
 function EmptyDinnerState() {
   return (
     <div className="box empty_dinner_state_box">
-      <img src={calendar} alt="calendar" />
+      <CalendarIcon />
       <p>
         It's <span>Sunday</span> , so no dinner is scheduled for tonight.
       </p>

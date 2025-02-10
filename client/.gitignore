@@ -1,3 +1,6 @@
+.env
+*.toml
+
 # Logs
 logs
 *.log

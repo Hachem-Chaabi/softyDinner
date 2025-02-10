@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Carousel } from 'antd'
 
 const contentStyle: React.CSSProperties = {
@@ -9,8 +10,22 @@ const contentStyle: React.CSSProperties = {
   background: '#fff',
 }
 
-function SideBarBottom() {
-  return (
+function SideBarBottom({ isCollapsed }: { isCollapsed?: boolean }) {
+  const [showCarousel, setShowCarousel] = useState(false)
+
+  useEffect(() => {
+    if (!isCollapsed) {
+      const timer = setTimeout(() => {
+        setShowCarousel(false)
+      }, 300)
+
+      return () => clearTimeout(timer)
+    } else {
+      setShowCarousel(true)
+    }
+  }, [isCollapsed])
+
+  return !showCarousel ? (
     <div className="sidebar_bottom">
       <Carousel autoplaySpeed={8000} autoplay adaptiveHeight arrows infinite>
         <div>
@@ -43,7 +58,7 @@ function SideBarBottom() {
         </div>
       </Carousel>
     </div>
-  )
+  ) : null
 }
 
 export default SideBarBottom

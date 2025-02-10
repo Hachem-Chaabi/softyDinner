@@ -1,10 +1,10 @@
-import searchIcon from '/search-icon.png'
+import SearchIcon from '../../assets/icons/search/search-icon.svg?react'
 
 function Search() {
   return (
     <div className="search">
       <div className="search_container">
-        <img src={searchIcon} alt="search icon" />
+        <SearchIcon />
         <input id='search' name='search' type="text" className="search_input" placeholder="Search" />
       </div>
     </div>

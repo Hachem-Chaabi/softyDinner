@@ -1,17 +1,14 @@
-import logoutIcon from '/logout.png'
+import LogoutIcon from '../../assets/icons/profileDropDown/logout-icon.svg?react'
 
-import { useDispatch } from 'react-redux'
 import { clearTokens } from '../../utils/token'
-import { initialise } from '../../../auth/data/authSlice'
 import { useAppSelector } from '../../store'
 
 function ProfileDropdown() {
   const { user } = useAppSelector((state) => state.auth)
-  const dispatch = useDispatch()
 
   const handleLogout = () => {
-    dispatch(initialise({ isAuthenticated: false, user: null }))
     clearTokens()
+    window.location.reload()
   }
 
   return (
@@ -21,7 +18,7 @@ function ProfileDropdown() {
 
       <div className="logout_container" onClick={handleLogout}>
         <p>Logout</p>
-        <img src={logoutIcon} alt="logout" />
+        <LogoutIcon />
       </div>
     </div>
   )

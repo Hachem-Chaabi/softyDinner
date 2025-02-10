@@ -33,6 +33,9 @@ const authSlice = createSlice({
     restore: (state) => {
       state.error = null
     },
+    cleanStore: (state) => {
+      state.user = null
+    },
     updateUserPoints: (state, action: PayloadAction<number>) => {
       if (state.user) {
         state.user.points = action.payload
@@ -59,6 +62,6 @@ const authSlice = createSlice({
   },
 })
 
-export const { initialise, restore, updateUserPoints } = authSlice.actions
+export const { initialise, restore, updateUserPoints, cleanStore } = authSlice.actions
 
 export default authSlice.reducer

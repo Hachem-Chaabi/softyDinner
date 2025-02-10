@@ -1,7 +1,6 @@
 export interface IDish {
   _id?: string
   image: string
-  averageRating: string
   name: string
   isFavorite?: boolean
 }

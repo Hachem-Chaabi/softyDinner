@@ -1,8 +1,9 @@
 @use '../../../shared/assets/styles/abstracts/colors' as *;
 
 .sidebar_bottom {
-  width: 100%;
+  width: 240px;
   padding: 18px;
+  transition:  all 0.2s;
 
   .content_title {
     font-family: 'Noto Sans Arabic', serif;

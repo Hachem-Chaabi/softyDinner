@@ -3,16 +3,21 @@ import Dinner from '../../components/Dinner/Dinner'
 import Dishes from '../../components/Dishes/Dishes'
 import DinnerTickets from '../../../shared/components/DinnerTickets/DinnerTickets'
 import DonationHistory from '../../../shared/components/DonationHistory/DonationHistory'
+import Spinner from '../../../shared/components/Spinner/Spinner'
 
-import { useAppSelector } from '../../../shared/store'
-// import EmptySearch from '../../shared/components/EmptySearch/EmptySearch'
+import { useGetUserQuery } from '../../data/home'
+import { useMediaQuery } from '@mui/material'
 
 function Home() {
-  const { user } = useAppSelector((state) => state.auth)
+  const breakpoint_of_930 = useMediaQuery('(max-width:930px)')
+
+  const { data, isLoading } = useGetUserQuery({})
+  const user = data?.data?.user
+
+  if (isLoading) return <Spinner />
 
   return (
     <div className="home">
-      {/* <EmptySearch /> */}
       <div className="left_side">
         <div className="user_name">Hey, {user?.name.split(' ')[0]}</div>
         <div className="boxes_list">
@@ -22,12 +27,14 @@ function Home() {
         </div>
       </div>
 
-      <div className="right_side">
-        <div className="right_side_container">
-          <DinnerTickets />
-          <DonationHistory />
+      {!breakpoint_of_930 && (
+        <div className="right_side">
+          <div className="right_side_container">
+            <DinnerTickets />
+            <DonationHistory />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

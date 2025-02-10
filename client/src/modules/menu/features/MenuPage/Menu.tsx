@@ -1,21 +1,22 @@
 import { useGetDinnerSchedulePerWeekQuery } from '../../data/menu'
 import { IMenuItem } from '../../data/types'
+import { useMediaQuery } from '@mui/material'
 
 import DinnerTickets from '../../../shared/components/DinnerTickets/DinnerTickets'
 import DonationHistory from '../../../shared/components/DonationHistory/DonationHistory'
 import EmptyMenu from '../../../shared/components/EmptyMenu/EmptyMenu'
 import MenuItem from '../../components/MenuItem/MenuItem'
-import MenuSkeleton from '../../../shared/components/MenuSkeleton/MenuSkeleton'
+import Spinner from '../../../shared/components/Spinner/Spinner'
 
 function Menu() {
-  const { data, isLoading, error } = useGetDinnerSchedulePerWeekQuery({})
+  const breakpoint_of_930 = useMediaQuery('(max-width:930px)')
+
+  const { data, isLoading } = useGetDinnerSchedulePerWeekQuery({})
   const menu = data?.data
 
-  if (isLoading) return <MenuSkeleton />
-
+  if (isLoading) return <Spinner />
   return (
     <div className="menu">
-      {/* <EmptySearch /> */}
       <div className="left_side">
         <div className="title">Weekly Menu</div>
         {menu?.length ? (
@@ -26,7 +27,6 @@ function Menu() {
                 _id={item._id}
                 dishes={item.dishes}
                 reservationId={item.reservations?.[0]?._id}
-                averageRating={item.averageRating}
                 date={item.date}
                 isReserved={item.isReserved}
                 isRated={item.isRated}
@@ -38,12 +38,14 @@ function Menu() {
         )}
       </div>
 
-      <div className="right_side">
-        <div className="right_side_container">
-          <DinnerTickets />
-          <DonationHistory />
+      {!breakpoint_of_930 && (
+        <div className="right_side">
+          <div className="right_side_container">
+            <DinnerTickets />
+            <DonationHistory />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

@@ -44,8 +44,8 @@
 
 .btn_secondary {
   &:hover {
-    border-color: $hover;
-    color: $hover;
+    background-color: $secondary !important;
+    color: $primary;
   }
   border: 1px solid $secondary;
   background-color: $primary;

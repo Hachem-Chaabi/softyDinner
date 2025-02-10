@@ -1,14 +1,19 @@
 import { useAppDispatch, useAppSelector } from '../../../shared/store'
 import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CodeInput from '../../components/CodeInput/CodeInput'
 import Button from '../../../shared/components/Button/Button'
-import { validateCode } from '../../data/authThunk'
+import { validateCode, validateEmail } from '../../data/authThunk'
+import { useToastMessage } from '../../../shared/hook/useToastMessage'
+import { initialise } from '../../data/forgetPasswordSlice'
 
 const VerifyEmail = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [submitting, setSubmitting] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
+
+  const { showToastMessage, messageConfigProvider } = useToastMessage({ loginPage: true })
 
   const { email, code } = useAppSelector((state) => state.forgetPassword)
 
@@ -19,15 +24,38 @@ const VerifyEmail = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+
+    if (code === '') {
+      showToastMessage('Please enter the verification code.', 'error')
+      return
+    }
+
     setSubmitting(true)
     dispatch(validateCode({ email, code }))
       .unwrap()
       .then(() => {
-        console.log('code validated')
         navigate('/login/reset-password/verify-email/create-new-password')
+        setError(false)
       })
       .catch((err) => {
-        alert(err?.message || 'something-went-wrong')
+        showToastMessage(err?.message || 'Something went wrong', 'error')
+        setError(true)
+      })
+      .finally(() => {
+        setSubmitting(false)
+      })
+  }
+
+  const handleResendCode = () => {
+    setSubmitting(true)
+
+    dispatch(validateEmail({ email }))
+      .unwrap()
+      .then(() => {
+        dispatch(initialise({ email }))
+      })
+      .catch((err) => {
+        showToastMessage(err?.message || 'Something went wrong', 'error')
       })
       .finally(() => {
         setSubmitting(false)
@@ -39,26 +67,32 @@ const VerifyEmail = () => {
       <form className="login_feature_container" style={{ gap: '46px' }} onSubmit={handleSubmit}>
         <div className="title">
           <h3>Verify your Email</h3>
-          <p>Please enter the four digit code sent to Flenfouleni@takiacademyteam.com</p>
+          <p>Please enter the four digit code sent to {email}</p>
         </div>
 
         <div className="login_feature_container_inputs">
-          <CodeInput />
+          <CodeInput error={error} />
         </div>
         <div className="login_feature_container_btns">
-          <button className="login_feature_container_btn_resend">Resend Code</button>
+          <button
+            disabled={submitting}
+            onClick={handleResendCode}
+            className={`login_feature_container_btn_resend ${error ? 'login_feature_container_btn_resend_error' : ''}`}
+          >
+            {error ? 'Invalid Code,' : ''} <span>Resend {error ? '' : 'Code'}</span>
+          </button>
           <div className="btns">
             <Button onClick={navigateBack} type="secondary" submitting={submitting}>
               Go Back
             </Button>
-            {/* <NavLink to={'/login/reset-password/verify-email/create-new-password'}> */}
             <Button type="primary" submitting={submitting}>
               Send
             </Button>
-            {/* </NavLink> */}
           </div>
         </div>
       </form>
+
+      {messageConfigProvider}
     </div>
   )
 }

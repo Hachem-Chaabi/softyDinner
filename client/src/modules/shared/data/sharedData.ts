@@ -1,6 +1,6 @@
 import { api } from '../../shared/store/services/api'
 
-export const homeApi = api.injectEndpoints({
+export const sharedApi = api.injectEndpoints({
   endpoints: (builder) => ({
     donate: builder.mutation({
       query: (data) => ({
@@ -13,4 +13,4 @@ export const homeApi = api.injectEndpoints({
   }),
 })
 
-export const { useDonateMutation } = homeApi
+export const { useDonateMutation } = sharedApi

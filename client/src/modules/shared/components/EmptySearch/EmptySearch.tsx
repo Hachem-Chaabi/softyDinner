@@ -1,11 +1,13 @@
+import EmptySearchIcon from '../../assets/icons/emptySearch/search-empty-icon.svg?react'
+
 import { NavLink } from 'react-router-dom'
+
 import Button from '../Button/Button'
-import emptySearchIcon from '/Search_empty.png'
 
 function EmptySearch() {
   return (
     <div className="empty_search">
-      <img src={emptySearchIcon} alt="calendar icon" />
+      <EmptySearchIcon />
       <p className="text">
         Looks like nothing matches your search. Maybe try searching for something else?
       </p>

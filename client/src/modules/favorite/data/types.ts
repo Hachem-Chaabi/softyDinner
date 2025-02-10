@@ -5,6 +5,10 @@ export interface Item {
   averageRating: string
 }
 
+// export interface FavoritesState {
+//   favorites: Item[]
+// }
 export interface FavoritesState {
-  favorites: Item[]
+  userFavorites: Record<string, Item[]> // Keyed by user ID
 }
+

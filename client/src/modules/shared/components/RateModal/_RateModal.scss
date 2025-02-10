@@ -67,3 +67,31 @@
     fill: #fde52d;
   }
 }
+
+@media (max-width: 450px) {
+  .rate_modal {
+    .ant-modal-content {
+      padding: 40px 18px 28px 18px !important;
+      width: 280px !important;
+
+      .ant-modal-close {
+        top: 9px;
+        right: 9px;
+      }
+    }
+
+    .rate_and_textarea {
+      gap: 8px;
+
+      .ant-rate-star {
+        width: 24px;
+        height: 24px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}

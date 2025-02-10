@@ -8,18 +8,20 @@
   width: 100%;
 
   .login_feature_container_btn_resend {
-    &:hover {
-      color: $hover;
-    }
+    cursor: default;
     transition: all 0.2s;
     background: transparent;
     border: none;
     color: $secondary;
-    text-decoration: underline;
     font-weight: 600;
     letter-spacing: -0.07px;
     font-size: 14px;
     line-height: 17px;
+
+    span {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 
   .btns {
@@ -32,4 +34,8 @@
       width: 100%;
     }
   }
+}
+
+.login_feature_container_btn_resend_error {
+  color: $danger !important;
 }

@@ -8,7 +8,7 @@ interface TimeLeft {
 
 const getRemainingTime = (): TimeLeft => {
   const now = new Date()
-  const endTime = new Date(new Date().setUTCHours(11, 30, 0, 0))
+  const endTime = new Date(new Date().setHours(12, 0, 0, 0))
 
   if (now >= endTime) return { hours: 0, minutes: 0, seconds: 0 }
 

@@ -1,4 +1,4 @@
-import giftIcon from '/gift.png'
+import GiftIcon from '../../assets/icons/donationHistory/gift-icon.svg?react'
 
 import { format, parseISO } from 'date-fns'
 
@@ -14,7 +14,7 @@ function DonationHistoryItem({ createdAt, recipient, tickets }: IDonationHistory
   return (
     <div className="donation_history_item">
       <div className="logo_container">
-        <img src={giftIcon} alt="gift icon" />
+        <GiftIcon />
       </div>
 
       <div className="text_container">

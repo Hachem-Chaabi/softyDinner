@@ -22,6 +22,12 @@ export interface validateCodePayload {
   code: string
 }
 
+export interface createNewPasswordPayload {
+  email: string
+  code: string
+  password: string
+}
+
 export interface RegisterPayload {
   firstName: string
   lastName: string

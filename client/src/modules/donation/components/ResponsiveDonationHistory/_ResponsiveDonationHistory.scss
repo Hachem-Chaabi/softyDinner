@@ -1,0 +1,54 @@
+@use '../../../shared/assets/styles/abstracts/colors' as *;
+
+.responsive_donation_history_box_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 50px;
+  width: 100%;
+
+  .title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #424242;
+  }
+
+  .responsive_donation_history_box {
+    overflow-x: scroll;
+    scrollbar-width: none;
+
+    display: flex;
+    padding: 16px 0px 0px 0px !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+
+    a {
+      z-index: 0;
+      align-self: flex-end;
+      .see_all_link {
+        &:hover {
+          color: $hover;
+        }
+        transition: all 0.2s;
+        color: $secondary-text;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    }
+
+    .donation_history_empty_state {
+      font-weight: 500;
+      font-size: 12px;
+      color: #424242;
+      z-index: 0;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+}

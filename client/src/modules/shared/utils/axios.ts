@@ -1,8 +1,9 @@
 import { clearTokens, getTokens, setTokens } from './token'
 import { isValidToken } from './isValidToken'
 import axios from 'axios'
+import { VITE_APP_BASE_URL } from '../../../config'
 
-const baseURL = 'https://softydinnerapi.softylines.com'
+const baseURL = VITE_APP_BASE_URL
 
 const headers = {
   Accept: 'application/json',

@@ -3,15 +3,18 @@ import { useFormik } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
 import Input from '../../../shared/components/Input'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from '../../../shared/components/Button/Button'
 import { validateEmail } from '../../data/authThunk'
 import { initialise } from '../../data/forgetPasswordSlice'
+import { useToastMessage } from '../../../shared/hook/useToastMessage'
 
 const ResetPassword = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [submitting, setSubmitting] = useState<boolean>(false)
+
+  const { showToastMessage, messageConfigProvider } = useToastMessage({ loginPage: true })
 
   const navigateBack = () => {
     navigate(-1)
@@ -32,12 +35,11 @@ const ResetPassword = () => {
       dispatch(validateEmail(values))
         .unwrap()
         .then(() => {
-          console.log('email validated')
           dispatch(initialise(values))
           navigate('/login/reset-password/verify-email')
         })
         .catch((err) => {
-          alert(err?.message || 'something-went-wrong')
+          showToastMessage(err?.message || 'Something went wrong', 'error')
         })
         .finally(() => {
           setSubmitting(false)
@@ -70,13 +72,13 @@ const ResetPassword = () => {
           <Button onClick={navigateBack} type="secondary" submitting={submitting}>
             Go Back
           </Button>
-          {/* <NavLink to={'/login/reset-password/verify-email'}> */}
           <Button type="primary" submitting={submitting}>
             Send
           </Button>
-          {/* </NavLink> */}
         </div>
       </form>
+
+      {messageConfigProvider}
     </div>
   )
 }

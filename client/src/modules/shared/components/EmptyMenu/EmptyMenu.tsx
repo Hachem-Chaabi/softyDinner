@@ -1,9 +1,9 @@
-import calendar from '/Calendar_empty.png'
+import CalendarIcon from '../../assets/icons/shared/calendar-icon.svg?react'
 
 function EmptyMenu() {
   return (
     <div className="empty_menu">
-      <img src={calendar} alt="calendar icon" />
+      <CalendarIcon />
       <p className="text">No dinner menu is available at the moment. Please check back later.</p>
     </div>
   )

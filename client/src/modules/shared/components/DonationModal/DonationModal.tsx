@@ -6,24 +6,20 @@ import { useDonateMutation } from '../../data/sharedData'
 
 import Button from '../Button/Button'
 import Input from '../Input'
-import { useAppDispatch } from '../../store'
-import { updateUserPoints } from '../../../auth/data/authSlice'
 
 interface IDonationModal {
+  points: number
   identifier?: string
-  points?: number
   isOpen: boolean
   setIsOpen: (arg: boolean) => void
 }
 
 function DonationModal({ points, identifier, isOpen, setIsOpen }: IDonationModal) {
-  const { showToastMessage, messageConfigProvider } = useToastMessage()
+  const { showToastMessage, messageConfigProvider } = useToastMessage({})
 
   const handleClose = () => {
     setIsOpen(false)
   }
-
-  const dispatch = useAppDispatch()
 
   const [donate, { isLoading }] = useDonateMutation()
 
@@ -38,7 +34,8 @@ function DonationModal({ points, identifier, isOpen, setIsOpen }: IDonationModal
         .typeError('Recipient identifier must be a number'),
       ticketsNum: Yup.number()
         .required('Number of tickets is required')
-        .typeError('Number of tickets must be a number'),
+        .typeError('Number of tickets must be a number')
+        .lessThan(points, `Please enter a number less than ${points}`),
     }),
     onSubmit: async (values) => {
       await donate({
@@ -48,13 +45,11 @@ function DonationModal({ points, identifier, isOpen, setIsOpen }: IDonationModal
       })
         .unwrap()
         .then(() => {
-          const newPoints = points! - Number(values.ticketsNum)
-          dispatch(updateUserPoints(newPoints))
           handleClose()
           showToastMessage('Donation Received', 'success')
         })
         .catch((err) => {
-          showToastMessage(err?.message || 'something-went-wrong', 'error')
+          showToastMessage(err?.message || 'Something went wrong', 'error')
         })
     },
   })

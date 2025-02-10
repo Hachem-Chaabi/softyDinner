@@ -1,12 +1,13 @@
 @use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
 
 .donation_history_page {
-  display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   gap: 40px;
   padding: 24px 60px 70px 60px;
+  overflow-x: inherit;
+  scrollbar-width: none;
 
   .header {
     display: flex;
@@ -14,6 +15,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 12px;
+    margin-bottom: 40px;
 
     h3 {
       font-weight: 700;
@@ -41,7 +43,6 @@
 
     .ant-spin-container {
       .ant-table-content {
-        // height: 545px;
         border: 0.5px solid #d4d4d4;
         border-radius: 6px;
 
@@ -105,4 +106,8 @@
   a {
     color: $primary !important;
   }
+}
+
+.ant-spin-dot {
+  color: $secondary !important;
 }

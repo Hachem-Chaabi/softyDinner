@@ -20,7 +20,7 @@ const useMenuReservation = () => {
       ],
     })
       .unwrap()
-      .then((res) => {
+      .then(() => {
         showToastMessage('Reservation successful', 'success')
       })
       .catch((err) => showToastMessage(err?.message || 'Something went wrong', 'error'))

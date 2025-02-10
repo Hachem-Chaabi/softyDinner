@@ -2,24 +2,24 @@ import { useState } from 'react'
 import { useGetAvailableDishesQuery } from '../../data/home'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useMediaQuery } from '@mui/material'
+import { IDish } from '../../data/types'
 
 import Dish from '../../../home/components/Dish/Dish'
 import ArrowBtn from '../../../shared/components/ArrowBtn/ArrowBtn'
-import { IDish } from '../../data/types'
-import DishesSkeleton from '../../../shared/components/DishesSkeleton/DishesSkeleton'
 
 function Dishes() {
+  const breakpoint_of_930 = useMediaQuery('(max-width:930px)')
+
   const [startIndex, setStartIndex] = useState(0)
 
-  const { data, isLoading, error } = useGetAvailableDishesQuery({})
+  const { data } = useGetAvailableDishesQuery({})
 
-  const mainDishes = data?.data?.mainDishes.docs
-  const sideDishes = data?.data?.sideDishes.docs
-
-  const visibleDishes = 4
+  const mainDishes = data?.data?.mainDishes?.docs || []
+  const sideDishes = data?.data?.sideDishes?.docs || []
 
   const nextSlide = () => {
-    if (startIndex + visibleDishes < allDishes.length) {
+    if (startIndex + 4 < allDishes.length) {
       setStartIndex(startIndex + 1)
     }
   }
@@ -29,13 +29,10 @@ function Dishes() {
       setStartIndex(startIndex - 1)
     }
   }
-
-  if (isLoading) return <DishesSkeleton />
-
   const allDishes = [...mainDishes, ...sideDishes]
 
   return (
-    <div className="box_container">
+    <div style={{ marginBottom: '50px' }} className="box_container">
       <div className="box_header">
         <h3 className="title">Available Dishes</h3>
         <NavLink to={'/home/available-dishes'}>
@@ -43,7 +40,7 @@ function Dishes() {
         </NavLink>
       </div>
       <div className="dishes_box_container">
-        <ArrowBtn type="right" onClick={prevSlide} />
+        {!breakpoint_of_930 && <ArrowBtn type="right" onClick={prevSlide} />}
         <div className="slider">
           <motion.div
             className="dishes_box"
@@ -53,17 +50,12 @@ function Dishes() {
           >
             {allDishes?.map((dish: IDish) => (
               <div key={dish._id} className="dishes">
-                <Dish
-                  _id={dish._id}
-                  image={dish.image}
-                  name={dish.name}
-                  averageRating={dish.averageRating}
-                />
+                <Dish _id={dish._id} image={dish.image} name={dish.name} />
               </div>
             ))}
           </motion.div>
         </div>
-        <ArrowBtn type="left" onClick={nextSlide} />
+        {!breakpoint_of_930 && <ArrowBtn type="left" onClick={nextSlide} />}
       </div>
     </div>
   )
