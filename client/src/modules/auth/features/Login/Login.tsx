@@ -2,22 +2,28 @@ import * as Yup from 'yup'
 import { useAppDispatch } from '../../../shared/store'
 import { useFormik } from 'formik'
 import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { login } from '../../data/authThunk'
+import { useToastMessage } from '../../../shared/hook/useToastMessage'
 
 import Input from '../../../shared/components/Input'
 import RememberMe from '../../../shared/components/RememberMe/RememberMe'
 import Button from '../../../shared/components/Button/Button'
 
 const Login = () => {
-  const navigate = useNavigate()
+  const { showToastMessage, messageConfigProvider } = useToastMessage({ loginPage: true })
   const dispatch = useAppDispatch()
   const [submitting, setSubmitting] = useState<boolean>(false)
 
+  const [rememberMe, setRememberMe] = useState<boolean>(false)
+  const handleToggle = () => {
+    setRememberMe((prev) => !prev)
+  }
+
   const formik = useFormik({
     initialValues: {
-      email: 'hachem.chaabi@takiacademyteam.com',
-      password: 'softyHachem.8',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object().shape({
       email: Yup.string()
@@ -30,7 +36,7 @@ const Login = () => {
       dispatch(login(values))
         .unwrap()
         .catch((err) => {
-          alert(err?.message || 'something-went-wrong')
+          showToastMessage(err?.message || 'Something went wrong', 'error')
         })
         .finally(() => {
           setSubmitting(false)
@@ -42,7 +48,7 @@ const Login = () => {
     <div className="login_feature">
       <form className="login_feature_container" onSubmit={formik.handleSubmit}>
         <div className="logo">
-          <img src="../../../public/softyDinnerLogo.png" alt="softy dinner logo" />
+          <img src="/softyDinnerLogo.png" alt="softy dinner logo" />
         </div>
 
         <div className="login_feature_container_inputs">
@@ -63,14 +69,12 @@ const Login = () => {
               type="password"
             />
 
-            {!formik?.errors?.password && (
-              <div className="password_actions">
-                <RememberMe />
-                <NavLink to={'/login/reset-password'}>
-                  <p className="forget_password">Forget Password?</p>
-                </NavLink>
-              </div>
-            )}
+            <div className="password_actions">
+              <RememberMe rememberMe={rememberMe} handleToggle={handleToggle} />
+              <NavLink to={'/login/reset-password'}>
+                <p className="forget_password">Forget Password?</p>
+              </NavLink>
+            </div>
           </div>
         </div>
 
@@ -78,6 +82,8 @@ const Login = () => {
           Login
         </Button>
       </form>
+
+      {messageConfigProvider}
     </div>
   )
 }

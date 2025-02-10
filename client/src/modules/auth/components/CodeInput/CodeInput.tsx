@@ -1,4 +1,3 @@
-import React from 'react'
 import { Input } from 'antd'
 import type { GetProps } from 'antd'
 import { useAppDispatch } from '../../../shared/store'
@@ -6,12 +5,11 @@ import { initialise } from '../../data/forgetPasswordSlice'
 
 type OTPProps = GetProps<typeof Input.OTP>
 
-const App: React.FC = () => {
+const CodeInput = ({ error }: { error: boolean }) => {
   const dispatch = useAppDispatch()
 
   const onChange: OTPProps['onChange'] = (value) => {
     dispatch(initialise({ code: value }))
-    console.log('onChange:', value)
   }
 
   const sharedProps: OTPProps = {
@@ -19,10 +17,10 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="code_input_container">
+    <div className={`code_input_container ${error ? 'code_input_container_error' : ''}`}>
       <Input.OTP type="number" length={4} size="large" {...sharedProps} />
     </div>
   )
 }
 
-export default App
+export default CodeInput

@@ -2,7 +2,7 @@
 
 .sidebar {
   position: relative;
-  width: 300px;
+  width: 360px;
   padding: 24px 26px 48px 26px;
   border-right: 0.5px dashed $secondary;
   transition: all 0.4s ease;
@@ -12,7 +12,7 @@
   flex-direction: column;
 
   &_collapsed {
-    width: 115px;
+    width: 115px !important;
     min-width: 80px;
     padding: 18px 22px;
   }
@@ -25,8 +25,8 @@
     transform: rotate(0);
     top: 155px;
     left: unset;
-    right: -10.5px;
-    padding: 5px 8px;
+    right: -13.5px;
+    padding: 0px 10px;
     background: $primary;
     border-radius: 100%;
     border: 0.5px dashed $secondary;

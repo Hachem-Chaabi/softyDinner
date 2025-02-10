@@ -1,6 +1,5 @@
 export interface IMenuItem {
   _id?: string
-  averageRating: number
   dishes: IDishes
   isReserved?: boolean
   isRated: boolean
@@ -23,7 +22,7 @@ export interface ISideDish {
 }
 
 interface IMainDish {
-  // _id: () => Promise<void>
+  _id: string
   averageRating: string
   name: string
   image: string

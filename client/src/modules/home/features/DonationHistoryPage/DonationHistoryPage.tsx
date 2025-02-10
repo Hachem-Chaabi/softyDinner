@@ -1,4 +1,4 @@
-import leftArrowIcon from '/arrow-left.png'
+import LeftArrowIcon from '../../../shared/assets/icons/shared/left-arrow-icon.svg?react'
 
 import { Table } from 'antd'
 import type { TableProps } from 'antd'
@@ -38,7 +38,7 @@ const columns: TableProps<DataType>['columns'] = [
 function DonationHistoryPage() {
   const navigate = useNavigate()
   const { id } = useParams()
-  const { data, isLoading, error } = useGetDonationHistoryQuery(id)
+  const { data, isLoading } = useGetDonationHistoryQuery(id)
 
   const userDonations = data?.data?.filter((donation: IDonation) => donation.donor._id === id)
   const donationHistoryData = userDonations?.reverse()
@@ -62,7 +62,7 @@ function DonationHistoryPage() {
       <div className="header">
         <h3>Donation History</h3>
         <div onClick={navigateBack} className="go_back_btn">
-          <img src={leftArrowIcon} alt="left arrow icon" />
+          <LeftArrowIcon />
           <p>Back</p>
         </div>
       </div>

@@ -2,7 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axiosInstance from '../../shared/utils/axios'
 import {
-  IUser,
+  createNewPasswordPayload,
   LoginPayload,
   RegisterPayload,
   validateCodePayload,
@@ -47,12 +47,30 @@ export const validateCode = createAsyncThunk(
   'auth/validate-code',
   async (query: validateCodePayload, { rejectWithValue }) => {
     try {
-      console.log(query)
-
       const { email, code } = query
-      console.log(email, code);
-      
-      const response = await axiosInstance.post(`/api/v1/validate-code/${email}`, code)
+
+      const response = await axiosInstance.post(`/api/v1/validate-code/${email}`, { code })
+
+      if (response.status === 200) {
+        return response?.data
+      }
+
+      throw new Error(response?.statusText)
+    } catch (err: any) {
+      return rejectWithValue(err)
+    }
+  }
+)
+
+export const createNewPassword = createAsyncThunk(
+  'auth/create-new-password',
+  async (query: createNewPasswordPayload, { rejectWithValue }) => {
+    try {
+      const { email, code, password } = query
+
+      const response = await axiosInstance.post(`/api/v1/update-password/${email}/${code}`, {
+        password,
+      })
 
       if (response.status === 200) {
         return response?.data

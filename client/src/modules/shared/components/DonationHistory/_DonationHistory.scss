@@ -1,6 +1,8 @@
 @use '../../../shared/assets/styles/abstracts/colors' as *;
 
 .donation_history_box_container {
+  margin-bottom: 110px;
+  
   .donation_history_box {
     padding: 16px 35px 30px 35px !important;
     flex-direction: column !important;

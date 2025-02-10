@@ -1,15 +1,15 @@
-import star from '/public/star.png'
-import cancel from '/public/cancel.png'
+import StarIcon from '../../../shared/assets/icons/shared/filled-star-icon.svg?react'
+import CrossIcon from '../../../shared/assets/icons/shared/cross-icon.svg?react'
 
 import { format } from 'date-fns'
 import { formatRate } from '../../../shared/helpers/helpers'
 import { useToastMessage } from '../../../shared/hook/useToastMessage'
 import { useAppSelector } from '../../../shared/store'
 import { useGetDinnerScheduleQuery } from '../../data/home'
+import { useGetRatesQuery } from '../../../menu/data/menu'
 
 import Button from '../../../shared/components/Button/Button'
 import Timer from '../../../shared/components/Timer/Timer'
-import DinnerSkeleton from '../../../shared/components/DinnerSkeleton/DinnerSkeleton'
 import EmptyDinnerState from '../../../shared/components/EmptyDinnerState/EmptyDinnerState'
 import useHomeReservation from '../../data/useHomeReservation'
 
@@ -21,13 +21,13 @@ function Dinner({ userId }: IDinner) {
   const timeLeft = useAppSelector((state) => state.timer)
   const isTimeOut = timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0
 
-  const { showToastMessage, messageConfigProvider } = useToastMessage()
+  const { showToastMessage, messageConfigProvider } = useToastMessage({})
 
   const todayDate = format(new Date(), 'yyyy-MM-dd')
   const isSunday = new Date().toLocaleDateString('en-US', { weekday: 'long' }) === 'Sunday'
 
-  const { data, isLoading, error } = useGetDinnerScheduleQuery(todayDate, { skip: isSunday })
-  const reservationId = data?.data?.reservations?.[0]._id
+  const { data } = useGetDinnerScheduleQuery(todayDate, { skip: isSunday })
+  const reservationId = data?.data?.reservations?.[0]?._id
 
   const todayDish = data?.data?.dishes?.mainDish
   const isReserved = data?.data?.isReserved
@@ -39,7 +39,14 @@ function Dinner({ userId }: IDinner) {
     handleDeleteReservation,
   } = useHomeReservation()
 
-  if (isLoading) return <DinnerSkeleton />
+  const { data: ratingsData } = useGetRatesQuery(userId, {
+    skip: !userId,
+  })
+
+  const rating = ratingsData?.data?.docs?.find(
+    (doc: any) => doc.dinnerScheduleId._id === data?.data?._id
+  )?.rating
+
 
   return (
     <>
@@ -60,8 +67,8 @@ function Dinner({ userId }: IDinner) {
               <div className="dinner_name_and_rate">
                 <p className="dinner_name">{todayDish?.name}</p>
                 <div className="dinner_rate">
-                  <p>{formatRate(todayDish?.averageRating)}/5</p>
-                  <img src={star} alt="star" />
+                  <p>{formatRate(rating || '0')}/5</p>
+                  <StarIcon />
                 </div>
               </div>
             </div>
@@ -86,7 +93,7 @@ function Dinner({ userId }: IDinner) {
                   type="cancel"
                 >
                   <span>Cancel</span>
-                  <img src={cancel} alt="cancel icon" />
+                  <CrossIcon />
                 </Button>
               ) : (
                 isTimeOut && (

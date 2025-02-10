@@ -2,7 +2,6 @@
 import { RouteProps } from 'react-router-dom'
 import { Fragment, lazy } from 'react'
 import MainLayout from '../../shared/layout/MainLayout/MainLayout'
-import GuestGuard from '../../shared/guards/GuestGuard'
 import AuthGuard from '../../shared/guards/AuthGuard'
 
 type RouteConfig = {
@@ -28,13 +27,7 @@ const routes: RouteConfig[] = [
     component: lazy(() => import('../features/AvailableDishes/AvailableDishes')),
     layout: MainLayout,
   },
-  {
-    exact: true,
-    guard: AuthGuard,
-    path: '/home/donation-history/:id',
-    component: lazy(() => import('../features/DonationHistoryPage/DonationHistoryPage')),
-    layout: MainLayout,
-  },
+  
 ]
 
 export default routes

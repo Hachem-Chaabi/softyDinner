@@ -1,7 +1,6 @@
 @use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
 
 .dinner_tickets_box_container {
-  margin-top: 44px;
   width: 275px;
 
   .dinner_tickets_box {
@@ -9,6 +8,7 @@
     flex-direction: column !important;
     gap: 22px !important;
     padding: 0 !important;
+    overflow: clip !important;
 
     .text {
       font-weight: 500;
@@ -40,6 +40,7 @@
 
       button {
         &:last-child {
+          
           background: transparent;
         }
         width: 35%;
@@ -56,5 +57,12 @@
     top: 0;
     left: 0;
     transform: rotateY(-180deg);
+  }
+}
+
+@media (max-width: 930px) {
+  .dinner_tickets_box_container {
+    margin-top: 0;
+    width: 100%;
   }
 }

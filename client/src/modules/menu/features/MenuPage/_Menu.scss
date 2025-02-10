@@ -10,8 +10,10 @@
   scrollbar-width: none;
 
   .left_side {
+    transition: all 0.2s;
     margin-right: 67px;
     max-width: 750px;
+    width: 100%;
     height: 100%;
     padding: 0 48px;
     display: flex;
@@ -37,13 +39,70 @@
 
   .right_side {
     width: fit-content;
-    height: 100%;
     padding-right: 48px;
+    height: 90%;
 
     &_container {
       display: flex;
       flex-direction: column;
       gap: 26px;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .menu {
+    .left_side {
+      margin-right: 0px;
+    }
+  }
+}
+
+@media (max-width: 1380px) {
+  .menu {
+    .left_side {
+      margin-right: 45px;
+      max-width: 600px;
+    }
+  }
+}
+
+@media (max-width: 1255px) {
+  .menu {
+    .left_side {
+      margin-right: 0px;
+    }
+  }
+}
+
+@media (max-width: 930px) {
+  .menu {
+    .left_side {
+      max-width: 750px;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .menu {
+    .left_side {
+      max-width: 600px;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .menu {
+    .left_side {
+      padding: 0 72px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .menu {
+    .left_side {
+      padding: 0 20px;
     }
   }
 }

@@ -1,13 +1,14 @@
 import Button from '../Button/Button'
 import { useState } from 'react'
 import DonationModal from '../DonationModal/DonationModal'
-import { useAppSelector } from '../../store'
+import { useGetUserQuery } from '../../../home/data/home'
+import { useNavigate } from 'react-router-dom'
 
 function DinnerTickets() {
-  const { user } = useAppSelector((state) => state.auth)
-
-  const timeLeft = useAppSelector((state) => state.timer)
-  const isTimeOut = timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0
+  const navigate = useNavigate()
+  const { data } = useGetUserQuery({})
+  const user = data?.data?.user
+  const points = user?.points
 
   const isSunday = new Date().toLocaleDateString('en-US', { weekday: 'long' }) === 'Sunday'
 
@@ -17,12 +18,16 @@ function DinnerTickets() {
     setModalOpen(true)
   }
 
+  const handleReserve = () => {
+    navigate('/menu')
+  }
+
   return (
     <div className="box_container dinner_tickets_box_container">
       <h3 className="title">Dinner Tickets</h3>
       <div className="box dinner_tickets_box">
         <p className="text">
-          You have <span>{user?.points}</span> tickets
+          You have <span>{points}</span> tickets
         </p>
 
         {user?.points === 0 ? (
@@ -31,12 +36,16 @@ function DinnerTickets() {
           </p>
         ) : (
           <div className="btns">
-            {!isSunday && !isTimeOut && <Button type="primary">Reserve</Button>}
+            {!isSunday && (
+              <Button onClick={handleReserve} type="primary">
+                Reserve
+              </Button>
+            )}
             <Button onClick={handleOpenModal} type="secondary">
               Donate
             </Button>
             <DonationModal
-              points={user?.points}
+              points={points}
               identifier={user?.identifier}
               isOpen={modalOpen}
               setIsOpen={setModalOpen}

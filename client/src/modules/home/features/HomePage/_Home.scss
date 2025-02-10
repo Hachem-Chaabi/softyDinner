@@ -6,8 +6,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: inherit;
+  scrollbar-width: none;
 
   .left_side {
+    transition: all 0.2s;
     margin-right: 45px;
     max-width: 772px;
     height: 100%;
@@ -35,13 +38,72 @@
 
   .right_side {
     width: fit-content;
-    height: 100%;
     padding-right: 48px;
+    height: 90%;
 
     &_container {
       display: flex;
       flex-direction: column;
       gap: 26px;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .home {
+    .left_side {
+      margin-right: 0px;
+    }
+  }
+}
+
+@media (max-width: 1380px) {
+  .home {
+    .left_side {
+      margin-right: 45px;
+      max-width: 600px;
+    }
+  }
+}
+
+@media (max-width: 1255px) {
+  .home {
+    .left_side {
+      margin-right: 0px;
+    }
+  }
+}
+
+@media (max-width: 930px) {
+  .home {
+    .left_side {
+      max-width: 750px;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .home {
+    .left_side {
+      max-width: 600px;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .home {
+    .left_side {
+      gap: 72px;
+      padding: 0 92px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .home {
+    .left_side {
+      padding: 0 20px;
+      width: 100%;
     }
   }
 }

@@ -1,0 +1,56 @@
+@use '../../../../modules/shared/assets/styles/abstracts/colors' as *;
+
+.donation_page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 68px;
+
+  .donation_page_container {
+    transition: all 0.2s;
+    width: 600px;
+    height: 100%;
+    padding: 0 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .page_title {
+    margin-bottom: 4px;
+    font-weight: 700;
+    line-height: 30px;
+    color: #424242;
+    font-size: 24px;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 930px) {
+  .donation_page {
+    .donation_page_container {
+      max-width: 740px;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .donation_page {
+    .donation_page_container {
+      max-width: 600px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .donation_page {
+    .donation_page_container {
+      padding: 0 24px;
+    }
+  }
+}

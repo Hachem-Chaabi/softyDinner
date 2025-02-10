@@ -2,6 +2,16 @@ import { api } from '../../shared/store/services/api'
 
 export const homeApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    getUser: builder.query({
+      query: () => ({
+        url: `/api/v1/me`,
+      }),
+      providesTags: [
+        { type: 'Home', id: 'dinnerSchedule' },
+        { type: 'Menu', id: 'dinnerSchedulePerWeek' },
+        { type: 'Shared', id: 'donate' },
+      ],
+    }),
     getAvailableDishes: builder.query({
       query: () => ({
         url: `/api/v1/dinner`,
@@ -26,19 +36,26 @@ export const homeApi = api.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: [{ type: 'Home', id: 'dinnerSchedule' }],
+      invalidatesTags: [
+        { type: 'Home', id: 'dinnerSchedule' },
+        { type: 'Menu', id: 'dinnerSchedulePerWeek' },
+      ],
     }),
     deleteTodayReservation: builder.mutation({
       query: ({ id }: { id: string | null }) => ({
         url: `/api/v1/dinnerReservation/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'Home', id: 'dinnerSchedule' }],
+      invalidatesTags: [
+        { type: 'Home', id: 'dinnerSchedule' },
+        { type: 'Menu', id: 'dinnerSchedulePerWeek' },
+      ],
     }),
   }),
 })
 
 export const {
+  useGetUserQuery,
   useGetAvailableDishesQuery,
   useGetDonationHistoryQuery,
   useGetDinnerScheduleQuery,

@@ -1,7 +1,7 @@
 @forward './DinnerTickets/DinnerTickets';
 @forward './DonationHistory/DonationHistory';
 @forward './Navbar/Navbar';
-@forward './Input/index';
+@forward './Input/Input';
 @forward './RememberMe/RememberMe';
 @forward './Button/Button';
 @forward './SideBar/Sidebar';
@@ -20,3 +20,5 @@
 @forward './RateModal/RateModal';
 @forward './EmptyMenu/EmptyMenu';
 @forward './EmptyFavorite/EmptyFavorite';
+@forward './DrawerSideBar/DrawerSideBar';
+@forward './Spinner/Spinner';

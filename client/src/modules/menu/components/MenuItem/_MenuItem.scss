@@ -76,6 +76,7 @@
         gap: 8px;
 
         .dish_name {
+          font-family: 'Noto Sans Arabic', serif;
           font-weight: 600;
           font-size: 16px;
           color: $primary-text;
@@ -94,6 +95,8 @@
           gap: 8px;
 
           .heart_icon {
+            width: 20px;
+            height: 20px;
             cursor: pointer;
           }
 
@@ -101,32 +104,36 @@
             font-weight: 500;
             font-size: 14px;
             color: $border;
+            line-height: 18px;
           }
         }
       }
     }
 
     .menu_item_right_side {
-      cursor: pointer;
-      width: 60px;
-      height: 45px;
+      transition: all 0.2s;
       border-radius: 15px;
-      padding: 4px 8px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       .menu_item_btn {
+        cursor: pointer;
+        width: 60px;
+        height: 45px;
+        padding: 4px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         background: transparent;
         border: none;
-        display: flex;
       }
     }
 
     .menu_item_time_passed {
       background-color: $secondary;
-      cursor: default;
+
+      button {
+        cursor: default !important;
+      }
     }
 
     .menu_item_reserve {
@@ -139,6 +146,72 @@
 
     .menu_item_cancel {
       background-color: #ff1e00;
+    }
+  }
+}
+
+@media (max-width: 1380px) {
+  .menu_item {
+    .card {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .menu_item {
+    .header {
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .card {
+      .menu_item_left_side {
+        .dish_img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .text {
+          gap: 4px;
+
+          .dish_name {
+            font-size: 14px;
+          }
+
+          .side_dishes {
+            font-size: 12px;
+          }
+        }
+
+        .rate {
+          p {
+            font-size: 12px;
+          }
+
+          img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+
+      .menu_item_right_side {
+        .menu_item_btn {
+          width: 46px;
+          height: 36px;
+
+          svg {
+            width: 22px;
+            height: 22px;
+          }
+        }
+      }
     }
   }
 }

@@ -3,7 +3,6 @@
 .ant-modal-content {
   box-shadow: 4px 4px 4px 0px #0000000d !important;
   width: 400px !important;
-  // height: 336px !important;
   padding: 40px 32px 28px 32px !important;
   border-radius: 10px !important;
 
@@ -14,11 +13,6 @@
     color: $primary-text;
     top: 24px;
     right: 24px;
-
-    // svg {
-    //   width: 20px;
-    //   height: 20px;
-    // }
   }
 
   .ant-modal-body {
@@ -67,4 +61,20 @@
 
 .ant-modal-footer {
   margin-top: 0 !important;
+}
+
+.ant-modal {
+  width: fit-content !important;
+}
+
+@media (max-width: 450px) {
+  .ant-modal-content {
+    padding: 40px 18px 28px 18px !important;
+    width: 280px !important;
+
+    .ant-modal-close {
+      top: 9px;
+      right: 9px;
+    }
+  }
 }

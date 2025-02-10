@@ -1,13 +1,14 @@
+import { ReactElement } from 'react'
 import { useLocation } from 'react-router-dom'
 
 interface ISideBarBtn {
-  activeIconSrc: string
-  iconSrc: string
+  activeIcon?: ReactElement
+  icon: ReactElement
   name: string
-  collapsed: boolean
+  collapsed?: boolean
 }
 
-function SideBarBtn({ activeIconSrc, iconSrc, name, collapsed }: ISideBarBtn) {
+function SideBarBtn({ activeIcon, icon, name, collapsed }: ISideBarBtn) {
   const location = useLocation()
   const pageName = location.pathname.split('/')[1]
 
@@ -18,7 +19,7 @@ function SideBarBtn({ activeIconSrc, iconSrc, name, collapsed }: ISideBarBtn) {
       style={collapsed ? { justifyContent: 'center' } : undefined}
       className={`sidebar_btn ${isActive ? 'sidebar_btn_active' : ''}`}
     >
-      <img src={isActive ? activeIconSrc : iconSrc} alt={`${name} icon`} />
+      {isActive ? activeIcon : icon}
       {!collapsed && <p>{name}</p>}
     </div>
   )

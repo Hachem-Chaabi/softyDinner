@@ -1,34 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import { FavoritesState, Item } from './types'
 
 const initialState: FavoritesState = {
-  favorites: [],
-}
-
-const persistConfig = {
-  key: 'favorites',
-  storage,
+  userFavorites: {},
 }
 
 export const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    addFavorite: (state, action: PayloadAction<Item>) => {
-      if (!state.favorites.some((item) => item.id === action.payload.id)) {
-        state.favorites.push(action.payload)
+    addFavorite: (state, action: PayloadAction<{ userId: string; item: Item }>) => {
+      const { userId, item } = action.payload
+      if (!state.userFavorites[userId]) {
+        state.userFavorites[userId] = []
+      }
+      if (!state.userFavorites[userId].some((favItem) => favItem.id === item.id)) {
+        state.userFavorites[userId].push(item)
       }
     },
-    removeFavorite: (state, action: PayloadAction<string>) => {
-      state.favorites = state.favorites.filter((item) => item.id !== action.payload)
+    removeFavorite: (state, action: PayloadAction<{ userId: string; itemId: string }>) => {
+      const { userId, itemId } = action.payload
+      if (state.userFavorites[userId]) {
+        state.userFavorites[userId] = state.userFavorites[userId].filter((item) => item.id !== itemId)
+      }
     },
   },
 })
 
-const persistedFavoritesReducer = persistReducer(persistConfig, favoritesSlice.reducer)
-
 export const { addFavorite, removeFavorite } = favoritesSlice.actions
 
-export default persistedFavoritesReducer
+export default favoritesSlice.reducer

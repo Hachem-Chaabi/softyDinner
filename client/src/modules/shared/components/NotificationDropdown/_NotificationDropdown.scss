@@ -14,4 +14,11 @@
   justify-content: center;
   flex-direction: column;
   gap: 5px;
+
+  .empty_message {
+    color: $primary-text;
+    font-size: 16px;
+    font-weight: 500;
+    align-self: center;
+  }
 }

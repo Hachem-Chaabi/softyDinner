@@ -2,18 +2,45 @@ import { Modal, Rate } from 'antd'
 
 import Button from '../Button/Button'
 import { useToastMessage } from '../../hook/useToastMessage'
+import { useSubmitRateMutation } from '../../../menu/data/menu'
+import { useState } from 'react'
 
 interface IRateModal {
+  userId?: string
+  dinnerId?: string
+  dinnerScheduleId?: string
   isOpen: boolean
   setIsOpen: (arg: boolean) => void
 }
 
-function RateModal({ isOpen, setIsOpen }: IRateModal) {
-  const { showToastMessage, messageConfigProvider } = useToastMessage()
+function RateModal({ userId, dinnerId, dinnerScheduleId, isOpen, setIsOpen }: IRateModal) {
+  const [rateValue, setRateValue] = useState<null | number>(null)
+  const [review, setReview] = useState('')
+
+  const { showToastMessage, messageConfigProvider } = useToastMessage({})
 
   const handleClose = () => {
     setIsOpen(false)
-    showToastMessage('Rating Received', 'success')
+  }
+
+  const [submitRate, { isLoading }] = useSubmitRateMutation()
+
+  const handleSubmit = () => {
+    submitRate({
+      userId,
+      dinnerId,
+      dinnerScheduleId,
+      rating: rateValue,
+      review,
+    })
+      .unwrap()
+      .then(() => {
+        showToastMessage('Rating Received', 'success')
+        handleClose()
+      })
+      .catch((err) => {
+        showToastMessage(err?.message || 'Something went wrong', 'error')
+      })
   }
 
   return (
@@ -26,11 +53,11 @@ function RateModal({ isOpen, setIsOpen }: IRateModal) {
         onCancel={handleClose}
         footer={[
           <div key={'rate_modal_footer'} className="rate_modal_footer">
-            <Button onClick={handleClose} type="secondary">
+            <Button submitting={isLoading} onClick={handleClose} type="secondary">
               Cancel
             </Button>
 
-            <Button onClick={handleClose} type="primary">
+            <Button submitting={isLoading} onClick={handleSubmit} type="primary">
               Rate
             </Button>
           </div>,
@@ -39,6 +66,7 @@ function RateModal({ isOpen, setIsOpen }: IRateModal) {
         <h3>How did you find the dinner?</h3>
         <div className="rate_and_textarea">
           <Rate
+            onChange={(val) => setRateValue(val)}
             character={
               <svg
                 width="28"
@@ -57,6 +85,7 @@ function RateModal({ isOpen, setIsOpen }: IRateModal) {
             }
           />
           <textarea
+            onChange={(e) => setReview(e.target.value)}
             placeholder="Leave a rate..."
             name="rate_description"
             id="rate_description"

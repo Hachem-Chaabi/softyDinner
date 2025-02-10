@@ -1,15 +1,22 @@
-import { useAppDispatch } from '../../../shared/store'
+import * as Yup from 'yup'
+import { useAppDispatch, useAppSelector } from '../../../shared/store'
 import { useFormik } from 'formik'
 import { useState } from 'react'
-import * as Yup from 'yup'
-import Input from '../../../shared/components/Input'
 import { useNavigate } from 'react-router-dom'
+
+import Input from '../../../shared/components/Input'
 import Button from '../../../shared/components/Button/Button'
+import { createNewPassword } from '../../data/authThunk'
+import { useToastMessage } from '../../../shared/hook/useToastMessage'
 
 const CreateNewPassword = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [submitting, setSubmitting] = useState<boolean>(false)
+
+  const { showToastMessage, messageConfigProvider } = useToastMessage({ loginPage: true })
+
+  const { email, code } = useAppSelector((state) => state.forgetPassword)
 
   const formik = useFormik({
     initialValues: {
@@ -21,19 +28,19 @@ const CreateNewPassword = () => {
       confirmPassword: Yup.string().oneOf([Yup.ref('newPassword')], "Passwords don't match"),
     }),
     onSubmit: (values) => {
-      navigate('/todos')
-      // setSubmitting(true)
-      // dispatch(login(values))
-      //   .unwrap()
-      //   .then(() => {
-      //     console.log('welcome')
-      //   })
-      //   .catch((err) => {
-      //     alert(err?.message || 'something-went-wrong')
-      //   })
-      //   .finally(() => {
-      //     setSubmitting(false)
-      //   })
+      setSubmitting(true)
+      dispatch(createNewPassword({ email, code, password: values.newPassword }))
+        .unwrap()
+        .then(() => {
+          navigate('/login')
+          showToastMessage('Password updated successfully.', 'success')
+        })
+        .catch((err) => {
+          showToastMessage(err?.message || 'Something went wrong', 'error')
+        })
+        .finally(() => {
+          setSubmitting(false)
+        })
     },
   })
 
@@ -70,6 +77,8 @@ const CreateNewPassword = () => {
           Save
         </Button>
       </form>
+
+      {messageConfigProvider}
     </div>
   )
 }

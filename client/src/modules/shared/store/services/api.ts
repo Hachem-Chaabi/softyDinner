@@ -3,9 +3,10 @@ import { createApi, FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/qu
 import { clearTokens, getTokens, setTokens } from '../../utils/token'
 import { isValidToken } from '../../utils/isValidToken'
 import axios from 'axios'
+import { VITE_APP_BASE_URL } from '../../../../config'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://softydinnerapi.softylines.com',
+  baseUrl: VITE_APP_BASE_URL,
   prepareHeaders: (headers) => {
     const { access_token } = getTokens()
     if (access_token) {
@@ -55,7 +56,7 @@ const baseQueryWithRetry = staggeredBaseQueryWithBailOut
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['Todos', 'Home', 'Menu', 'Shared'],
+  tagTypes: ['Home', 'Menu', 'Shared'],
   baseQuery: baseQueryWithRetry,
   endpoints: () => ({}),
 })

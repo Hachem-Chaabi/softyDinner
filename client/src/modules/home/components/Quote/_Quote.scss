@@ -29,7 +29,7 @@
     overflow-x: clip;
 
     .quote {
-      width: 250px;
+      width: 50%;
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
@@ -41,16 +41,46 @@
       position: absolute;
       top: -16.4%;
       right: 10%;
-      // width: 253px;
     }
   }
 }
 
 .quote_box {
   &::before {
+    width: 100%;
     content: url('/anchors.png');
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+
+@media (max-width: 1380px) {
+  .box_container {
+    .box {
+      .character {
+        right: -4%;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .box_container {
+    .quote_box {
+      padding: 0;
+      justify-content: center;
+
+      .character {
+        right: -5%;
+        z-index: -1;
+        top: -75%;
+        width: 210px;
+      }
+
+      .quote {
+        width: 90%;
+      }
+    }
   }
 }

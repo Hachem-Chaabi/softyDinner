@@ -39,3 +39,14 @@
     }
   }
 }
+
+@media (max-width: 930px) {
+  .box_container {
+    .dishes_box_container {
+      .slider {
+        overflow-x: scroll;
+        scrollbar-width: none;
+      }
+    }
+  }
+}
